@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Registro Fitness</h1>
-        <form id="registroForm">
+        <form id="inscripcionForm">
             <label for="nombre">Nombre Completo:</label>
             <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
 
@@ -25,15 +25,13 @@
             <label for="objetivo">Objetivo Fitness:</label>
             <select id="objetivo" name="objetivo" required>
                 <option value="">Seleccione...</option>
-                <option value="Perder peso">Perder peso</option>
-                <option value="Ganar músculo">Ganar músculo</option>
-                <option value="Mantenerme en forma">Mantenerme en forma</option>
+                <option value="perder_peso">Perder Peso</option>
+                <option value="mantenerme">Mantenerme</option>
+                <option value="ganar_musculo">Ganar Músculo</option>
             </select>
 
             <button type="submit">Registrarse</button>
         </form>
-
-        <div id="mensaje" class="mensaje"></div>
     </div>
 
     <script src="script.js"></script>
