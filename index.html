@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripción a Curso en Línea</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario</h1>
+        <form id="inscripcionForm">
+            <label for="nombre">Nombre Completo:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" placeholder="Ingresa tu edad" required>
+
+            <label for="experiencia">Nivel de Experiencia en Programación:</label>
+            <select id="experiencia" name="experiencia" required>
+                <option value="">Seleccione...</option>
+                <option value="Principiante">Principiante</option>
+                <option value="Intermedio">Intermedio</option>
+                <option value="Avanzado">Avanzado</option>
+            </select>
+
+            <button type="submit">Inscribirse</button>
+        </form>
+
+        <div id="mensaje" class="mensaje"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
