@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscripción a Curso en Línea</title>
+    <title>Registro Fitness</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Formulario</h1>
-        <form id="inscripcionForm">
+        <h1>Registro Fitness</h1>
+        <form id="registroForm">
             <label for="nombre">Nombre Completo:</label>
             <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
 
             <label for="edad">Edad:</label>
             <input type="number" id="edad" name="edad" placeholder="Ingresa tu edad" required>
 
-            <label for="experiencia">Nivel de Experiencia en Programación:</label>
-            <select id="experiencia" name="experiencia" required>
+            <label for="peso">Peso (kg):</label>
+            <input type="number" id="peso" name="peso" placeholder="Ingresa tu peso" required>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" placeholder="Ingresa tu correo" required>
+
+            <label for="objetivo">Objetivo Fitness:</label>
+            <select id="objetivo" name="objetivo" required>
                 <option value="">Seleccione...</option>
-                <option value="Principiante">Principiante</option>
-                <option value="Intermedio">Intermedio</option>
-                <option value="Avanzado">Avanzado</option>
+                <option value="Perder peso">Perder peso</option>
+                <option value="Ganar músculo">Ganar músculo</option>
+                <option value="Mantenerme en forma">Mantenerme en forma</option>
             </select>
 
-            <button type="submit">Inscribirse</button>
+            <button type="submit">Registrarse</button>
         </form>
 
         <div id="mensaje" class="mensaje"></div>
