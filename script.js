@@ -1,5 +1,5 @@
 document.getElementById("inscripcionForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Evita el envío del formulario
+    event.preventDefault(); // Evita que se recargue la página
 
     let objetivo = document.getElementById("objetivo").value;
 
