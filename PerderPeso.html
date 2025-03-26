@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicios para Perder Peso</title>
-    <link rel="stylesheet" href="style2.css"> 
+    <link rel="stylesheet" href="style2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -20,33 +21,32 @@
             <li><a href="PerderPeso.html">Perder Peso</a></li>
         </ul>
     </nav>
-    <div class="cita">
-        <p class="frase">"El cuerpo logra lo que la mente cree."</p>
-        <p class="autor">- Desconocido</p>
+    
+    <div class="app-container">
+        <div class="greeting" id="daily-greeting">Bienvenido a tu rutina</div>
+        
+        <div class="quote">"El cuerpo logra lo que la mente cree."</div>
+        
+        <div class="exercise-container" id="exercise-screen">
+            <div class="exercise-image" id="exercise-image">
+                <img src="" alt="Ejercicio" id="exercise-img" style="display: none;">
+            </div>
+            <div class="exercise-info">
+                <h2 id="exercise-name">Selecciona Empezar</h2>
+                <p id="exercise-description">Para comenzar tu rutina de ejercicios</p>
+                <div class="reps-counter" id="reps-counter"></div>
+                <!-- Temporizador de ejercicio (no reloj) -->
+                <div class="exercise-timer" id="exercise-timer">00:00</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="action-button" id="start-button">Empezar</button>
+            <button class="complete-button" id="complete-button" style="display: none;">Terminé</button>
+            <button class="next-button" id="next-button" style="display: none;">Siguiente</button>
+        </div>
     </div>
     
-    <h1 class="bienvenida">¡Rutina para Perder Peso!</h1> <!-- Se aplica la clase bienvenida -->
-
-    <section class="introduccion">
-        <h2 style="font-family: 'Bradley Hand', cursive;">Ejercicios Recomendados</h2>
-        <table class="contenido">
-            <tr>
-                <td><img src="saltos.png" alt="Saltos de cuerda" width="170" height="auto"></td>
-                <td><p style="font-size: 1cm; font-family: Poppins;">1. Saltar la cuerda: Un ejercicio cardiovascular excelente para quemar calorías y mejorar la resistencia.</p></td>
-            </tr>
-            <tr>
-                <td><img src="burpees.jpg" alt="Burpees" width="170" height="auto"></td>
-                <td><p style="font-size: 1cm; font-family: Poppins;">2. Burpees: Un ejercicio de cuerpo completo que acelera el metabolismo.</p></td>
-            </tr>
-            <tr>
-                <td><img src="sentadillas.jpg" alt="Sentadillas" width="170" height="auto"></td>
-                <td><p style="font-size: 1cm; font-family: Poppins;">3. Sentadillas: Ayudan a fortalecer piernas y glúteos, esenciales para mejorar la movilidad.</p></td>
-            </tr>
-            <tr>
-                <td><img src="plancha.jpg" alt="Plancha" width="170" height="auto"></td>
-                <td><p style="font-size: 1cm; font-family: Poppins;">4. Plancha: Un excelente ejercicio para fortalecer el core y mejorar la postura.</p></td>
-            </tr>
-        </table>
-    </section>
+    <script src="script.js"></script>
 </body>
 </html>
