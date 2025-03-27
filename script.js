@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             window.location.href = routes[document.getElementById("objetivo").value] || alert("Selecciona un objetivo válido.");
         });
-    }
+    }   
 
     const exercises = [
         { name: "Saltar la cuerda", desc: "Ejercicio cardiovascular", img: "saltos.png", reps: "30 saltos" },
