@@ -14,23 +14,10 @@ header {
     text-align: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-.logo-image {
-    max-width: 150px;
-    height: auto;
-    transition: transform 0.3s ease;
-}
-
-.logo-image:hover {
-    transform: scale(1.05);
-}
-
-/* Estilos del menú de navegación */
 nav {
     background-color: #3498db;
     padding: 10px 0;
 }
-
 .menu {
     display: flex;
     justify-content: center;
@@ -38,11 +25,9 @@ nav {
     margin: 0;
     padding: 0;
 }
-
 .menu li {
     margin: 0 15px;
 }
-
 .menu a {
     color: white;
     text-decoration: none;
@@ -177,4 +162,31 @@ nav {
 
 .action-button:active, .complete-button:active, .next-button:active {
     transform: translateY(1px);
+}
+/* Estilos para el contenedor del IMC */
+.imc-container {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.imc-container h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.imc-container p {
+    margin: 8px 0;
+    color: #34495e;
+    font-size: 0.95em;
+}
+
+.imc-container strong {
+    color: #2c3e50;
 }
