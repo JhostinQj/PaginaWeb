@@ -1,114 +1,115 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const formulario = document.getElementById("inscripcionForm");
-    if (formulario) {
-        formulario.addEventListener("submit", (evento) => {
-            evento.preventDefault();
-            const datosUsuario = {
-                nombre: document.getElementById("nombre").value,
-                edad: document.getElementById("edad").value,
-                peso: parseFloat(document.getElementById("peso").value),
-                altura: parseFloat(document.getElementById("altura").value),
-                correo: document.getElementById("correo").value,
-                objetivo: document.getElementById("objetivo").value
+    const form = document.getElementById("inscripcionForm");
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const userData = {
+                name: document.getElementById("nombre").value,
+                age: document.getElementById("edad").value,
+                weight: parseFloat(document.getElementById("peso").value),
+                height: parseFloat(document.getElementById("altura").value),
+                email: document.getElementById("correo").value,
+                goal: document.getElementById("objetivo").value
             };
-            datosUsuario.imc = (datosUsuario.peso / (datosUsuario.altura * datosUsuario.altura)).toFixed(2);
-            localStorage.setItem('datosUsuario', JSON.stringify(datosUsuario));
+            userData.imc = (userData.weight / (userData.height * userData.height)).toFixed(2);
+            localStorage.setItem('userData', JSON.stringify(userData));
             window.location.href = "PerderPeso.html";
         });
     }
     if (document.getElementById('imc-display')) {
-        mostrarDatosUsuario();
+        showUserData();
     }
-    const ejercicios = [
-        { nombre: "Saltar la cuerda", descripcion: "Ejercicio cardiovascular", imagen: "imagenes/saltos.png", repeticiones: "30 saltos" },
-        { nombre: "Burpees", descripcion: "Acelera el metabolismo", imagen: "imagenes/burpees.jpg", repeticiones: "15 repeticiones" },
-        { nombre: "Sentadillas", descripcion: "Fortalece piernas", imagen: "imagenes/sentadillas.jpg", repeticiones: "20 repeticiones" },
-        { nombre: "Plancha", descripcion: "Mejora la postura", imagen: "imagenes/plancha.jpg", repeticiones: "30 segundos" }
+    const exercises = [
+        { name: "Saltar la cuerda", description: "Ejercicio cardiovascular", image: "imagenes/saltos.png", reps: "30 saltos" },
+        { name: "Burpees", description: "Acelera el metabolismo", image: "imagenes/burpees.jpg", reps: "15 repeticiones" },
+        { name: "Sentadillas", description: "Fortalece piernas", image: "imagenes/sentadillas.jpg", reps: "20 repeticiones" },
+        { name: "Plancha", description: "Mejora la postura", image: "imagenes/plancha.jpg", reps: "30 segundos" }
     ];
     
-    let indice = 0, temporizador;
-    const elementos = ["start-button", "complete-button", "next-button", "exercise-img", "exercise-name", "exercise-description", "reps-counter", "exercise-timer"].reduce((acumulador, id) => {
-        acumulador[id] = document.getElementById(id);
-        return acumulador;
+    let index = 0, timer;
+    const elements = ["start-button", "complete-button", "next-button", "exercise-img", "exercise-name", "exercise-description", "reps-counter", "exercise-timer"].reduce((acc, id) => {
+        acc[id] = document.getElementById(id);
+        return acc;
     }, {});
     
-    const actualizarEjercicio = () => {
-        if (indice >= ejercicios.length) return reiniciarRutina();
-        const { nombre, descripcion, imagen, repeticiones } = ejercicios[indice];
-        Object.assign(elementos["exercise-img"], { src: imagen, style: "display:block;" });
-        elementos["exercise-name"].textContent = nombre;
-        elementos["exercise-description"].textContent = descripcion;
-        elementos["reps-counter"].textContent = repeticiones;
-        elementos["exercise-timer"].textContent = "00:00";
+    const updateExercise = () => {
+        if (index >= exercises.length) return restartRoutine();
+        const { name, description, image, reps } = exercises[index];
+        Object.assign(elements["exercise-img"], { src: image, style: "display:block;" });
+        elements["exercise-name"].textContent = name;
+        elements["exercise-description"].textContent = description;
+        elements["reps-counter"].textContent = reps;
+        elements["exercise-timer"].textContent = "00:00";
     };
     
-    const iniciarTemporizador = () => {
-        clearInterval(temporizador);
-        let segundos = 0;
-        temporizador = setInterval(() => {
-            segundos++;
-            elementos["exercise-timer"].textContent = `${String(Math.floor(segundos / 60)).padStart(2, '0')}:${String(segundos % 60).padStart(2, '0')}`;
+    const startTimer = () => {
+        clearInterval(timer);
+        let seconds = 0;
+        timer = setInterval(() => {
+            seconds++;
+            elements["exercise-timer"].textContent = `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
         }, 1000);
     };
     
-    const alternarBotones = (estado) => {
-        const mostrar = { start: "none", complete: "none", next: "none" };
-        mostrar[estado] = "inline-block";
-        elementos["start-button"].style.display = mostrar.start;
-        elementos["complete-button"].style.display = mostrar.complete;
-        elementos["next-button"].style.display = mostrar.next;
+    const toggleButtons = (state) => {
+        const show = { start: "none", complete: "none", next: "none" };
+        show[state] = "inline-block";
+        elements["start-button"].style.display = show.start;
+        elements["complete-button"].style.display = show.complete;
+        elements["next-button"].style.display = show.next;
         
-        if (estado === "next" && indice === ejercicios.length - 1) {
-            elementos["next-button"].textContent = "Volver a Empezar";
+        if (state === "next" && index === exercises.length - 1) {
+            elements["next-button"].textContent = "Volver a Empezar";
         }
     };
     
-    const empezarEjercicio = () => { iniciarTemporizador(); alternarBotones("complete"); };
-    const completarEjercicio = () => { clearInterval(temporizador); alternarBotones("next"); };
-    const siguienteEjercicio = () => { 
-        indice++; 
-        if (indice >= ejercicios.length) indice = 0;
-        actualizarEjercicio(); 
-        alternarBotones("start"); 
+    const startExercise = () => { startTimer(); toggleButtons("complete"); };
+    const completeExercise = () => { clearInterval(timer); toggleButtons("next"); };
+    const nextExercise = () => { 
+        index++; 
+        if (index >= exercises.length) index = 0;
+        updateExercise(); 
+        toggleButtons("start"); 
     };
     
-    const reiniciarRutina = () => {
-        elementos["exercise-img"].style.display = "none";
-        elementos["exercise-name"].textContent = "¡Rutina completada!";
-        elementos["exercise-description"].textContent = "Has terminado todos los ejercicios";
-        elementos["reps-counter"].textContent = "";
-        elementos["exercise-timer"].textContent = "00:00";
-        alternarBotones("next");
+    const restartRoutine = () => {
+        elements["exercise-img"].style.display = "none";
+        elements["exercise-name"].textContent = "¡Rutina completada!";
+        elements["exercise-description"].textContent = "Has terminado todos los ejercicios";
+        elements["reps-counter"].textContent = "";
+        elements["exercise-timer"].textContent = "00:00";
+        toggleButtons("next");
     };
     
-    if (elementos["start-button"]) elementos["start-button"].addEventListener("click", empezarEjercicio);
-    if (elementos["complete-button"]) elementos["complete-button"].addEventListener("click", completarEjercicio);
-    if (elementos["next-button"]) elementos["next-button"].addEventListener("click", siguienteEjercicio);
+    if (elements["start-button"]) elements["start-button"].addEventListener("click", startExercise);
+    if (elements["complete-button"]) elements["complete-button"].addEventListener("click", completeExercise);
+    if (elements["next-button"]) elements["next-button"].addEventListener("click", nextExercise);
     
-    if (elementos["exercise-name"]) {
-        actualizarEjercicio();
-        alternarBotones("start");
+    if (elements["exercise-name"]) {
+        updateExercise();
+        toggleButtons("start");
     }
 });
-function mostrarDatosUsuario() {
-    const datosUsuario = JSON.parse(localStorage.getItem('datosUsuario'));
-    if (datosUsuario) {
+
+function showUserData() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData) {
         const imcDisplay = document.getElementById('imc-display');
         if (imcDisplay) {
-            let estado = "";
-            const valorImc = parseFloat(datosUsuario.imc);
+            let status = "";
+            const imcValue = parseFloat(userData.imc);
             
-            if (valorImc < 18.5) estado = "Bajo peso";
-            else if (valorImc < 25) estado = "Peso normal";
-            else if (valorImc < 30) estado = "Sobrepeso";
-            else estado = "Obesidad";
+            if (imcValue < 18.5) status = "Bajo peso";
+            else if (imcValue < 25) status = "Peso normal";
+            else if (imcValue < 30) status = "Sobrepeso";
+            else status = "Obesidad";
             
             imcDisplay.innerHTML = ` 
-                <h3>Hola ${datosUsuario.nombre}</h3>
-                <p><strong>Tu IMC:</strong> ${datosUsuario.imc} (${estado})</p>
-                <p><strong>Peso:</strong> ${datosUsuario.peso} kg | <strong>Altura:</strong> ${datosUsuario.altura} m</p>
-                <p><strong>Objetivo:</strong> ${datosUsuario.objetivo === 'perder_peso' ? 'Perder peso' : 
-                datosUsuario.objetivo === 'mantenerme' ? 'Mantenerme' : 'Ganar músculo'}</p>
+                <h3>Hola ${userData.name}</h3>
+                <p><strong>Tu IMC:</strong> ${userData.imc} (${status})</p>
+                <p><strong>Peso:</strong> ${userData.weight} kg | <strong>Altura:</strong> ${userData.height} m</p>
+                <p><strong>Objetivo:</strong> ${userData.goal === 'perder_peso' ? 'Perder peso' : 
+                userData.goal === 'mantenerme' ? 'Mantenerme' : 'Ganar músculo'}</p>
             `;
         }
     }
