@@ -1,30 +1,3 @@
-// Función para mostrar datos del usuario e IMC
-function mostrarDatosUsuario() {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    if (userData) {
-        const imcDisplay = document.getElementById('imc-display');
-        if (imcDisplay) {
-            // Interpretar el IMC
-            let estado = "";
-            const imcValue = parseFloat(userData.imc);
-            
-            if (imcValue < 18.5) estado = "Bajo peso";
-            else if (imcValue < 25) estado = "Peso normal";
-            else if (imcValue < 30) estado = "Sobrepeso";
-            else estado = "Obesidad";
-            
-            imcDisplay.innerHTML = `
-                <h3>Hola ${userData.nombre}</h3>
-                <p><strong>Tu IMC:</strong> ${userData.imc} (${estado})</p>
-                <p><strong>Peso:</strong> ${userData.peso} kg | <strong>Altura:</strong> ${userData.altura} m</p>
-                <p><strong>Objetivo:</strong> ${userData.objetivo === 'perder_peso' ? 'Perder peso' : 
-                  userData.objetivo === 'mantenerme' ? 'Mantenerme' : 'Ganar músculo'}</p>
-            `;
-        }
-    }
-}
-
-// Manejo del formulario
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("inscripcionForm");
     if (form) {
@@ -46,19 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
             
             // Guardar datos en localStorage
             localStorage.setItem('userData', JSON.stringify(userData));
-            
-            // Redirigir a la página correspondiente
-            const routes = {
-                "perder_peso": "PerderPeso.html",
-                "mantenerme": "Mantenerme.html",
-                "ganar_musculo": "GanarMusculo.html"
-            };
-            const objetivo = document.getElementById("objetivo").value;
-            if (routes[objetivo]) {
-                window.location.href = routes[objetivo];
-            } else {
-                alert("Selecciona un objetivo válido.");
-            }
+
+            // Redirigir siempre a PerderPeso.html
+            window.location.href = "PerderPeso.html";
         });
     }
     
@@ -69,10 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Ejercicios de la rutina
     const exercises = [
-        { name: "Saltar la cuerda", desc: "Ejercicio cardiovascular", img: "saltos.png", reps: "30 saltos" },
-        { name: "Burpees", desc: "Acelera el metabolismo", img: "burpees.jpg", reps: "15 repeticiones" },
-        { name: "Sentadillas", desc: "Fortalece piernas", img: "sentadillas.jpg", reps: "20 repeticiones" },
-        { name: "Plancha", desc: "Mejora la postura", img: "plancha.jpg", reps: "30 segundos" }
+        { name: "Saltar la cuerda", desc: "Ejercicio cardiovascular", img: "imagenes/saltos.png", reps: "30 saltos" },
+        { name: "Burpees", desc: "Acelera el metabolismo", img: "imagenes/burpees.jpg", reps: "15 repeticiones" },
+        { name: "Sentadillas", desc: "Fortalece piernas", img: "imagenes/sentadillas.jpg", reps: "20 repeticiones" },
+        { name: "Plancha", desc: "Mejora la postura", img: "imagenes/plancha.jpg", reps: "30 segundos" }
     ];
     
     let index = 0, timer;
@@ -139,3 +102,29 @@ document.addEventListener("DOMContentLoaded", () => {
         toggleButtons("start");
     }
 });
+
+// Función para mostrar datos del usuario e IMC
+function mostrarDatosUsuario() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData) {
+        const imcDisplay = document.getElementById('imc-display');
+        if (imcDisplay) {
+            // Interpretar el IMC
+            let estado = "";
+            const imcValue = parseFloat(userData.imc);
+            
+            if (imcValue < 18.5) estado = "Bajo peso";
+            else if (imcValue < 25) estado = "Peso normal";
+            else if (imcValue < 30) estado = "Sobrepeso";
+            else estado = "Obesidad";
+            
+            imcDisplay.innerHTML = ` 
+                <h3>Hola ${userData.nombre}</h3>
+                <p><strong>Tu IMC:</strong> ${userData.imc} (${estado})</p>
+                <p><strong>Peso:</strong> ${userData.peso} kg | <strong>Altura:</strong> ${userData.altura} m</p>
+                <p><strong>Objetivo:</strong> ${userData.objetivo === 'perder_peso' ? 'Perder peso' : 
+                userData.objetivo === 'mantenerme' ? 'Mantenerme' : 'Ganar músculo'}</p>
+            `;
+        }
+    }
+}
