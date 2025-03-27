@@ -1,17 +1,73 @@
+// Función para mostrar datos del usuario e IMC
+function mostrarDatosUsuario() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData) {
+        const imcDisplay = document.getElementById('imc-display');
+        if (imcDisplay) {
+            // Interpretar el IMC
+            let estado = "";
+            const imcValue = parseFloat(userData.imc);
+            
+            if (imcValue < 18.5) estado = "Bajo peso";
+            else if (imcValue < 25) estado = "Peso normal";
+            else if (imcValue < 30) estado = "Sobrepeso";
+            else estado = "Obesidad";
+            
+            imcDisplay.innerHTML = `
+                <h3>Hola ${userData.nombre}</h3>
+                <p><strong>Tu IMC:</strong> ${userData.imc} (${estado})</p>
+                <p><strong>Peso:</strong> ${userData.peso} kg | <strong>Altura:</strong> ${userData.altura} m</p>
+                <p><strong>Objetivo:</strong> ${userData.objetivo === 'perder_peso' ? 'Perder peso' : 
+                  userData.objetivo === 'mantenerme' ? 'Mantenerme' : 'Ganar músculo'}</p>
+            `;
+        }
+    }
+}
+
+// Manejo del formulario
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("inscripcionForm");
     if (form) {
         form.addEventListener("submit", (event) => {
             event.preventDefault();
+            
+            // Obtener los datos del formulario
+            const userData = {
+                nombre: document.getElementById("nombre").value,
+                edad: document.getElementById("edad").value,
+                peso: parseFloat(document.getElementById("peso").value),
+                altura: parseFloat(document.getElementById("altura").value),
+                correo: document.getElementById("correo").value,
+                objetivo: document.getElementById("objetivo").value
+            };
+            
+            // Calcular IMC
+            userData.imc = (userData.peso / (userData.altura * userData.altura)).toFixed(2);
+            
+            // Guardar datos en localStorage
+            localStorage.setItem('userData', JSON.stringify(userData));
+            
+            // Redirigir a la página correspondiente
             const routes = {
                 "perder_peso": "PerderPeso.html",
                 "mantenerme": "Mantenerme.html",
                 "ganar_musculo": "GanarMusculo.html"
             };
-            window.location.href = routes[document.getElementById("objetivo").value] || alert("Selecciona un objetivo válido.");
+            const objetivo = document.getElementById("objetivo").value;
+            if (routes[objetivo]) {
+                window.location.href = routes[objetivo];
+            } else {
+                alert("Selecciona un objetivo válido.");
+            }
         });
-    }   
+    }
+    
+    // Mostrar datos del usuario si estamos en la página de ejercicios
+    if (document.getElementById('imc-display')) {
+        mostrarDatosUsuario();
+    }
 
+    // Ejercicios de la rutina
     const exercises = [
         { name: "Saltar la cuerda", desc: "Ejercicio cardiovascular", img: "saltos.png", reps: "30 saltos" },
         { name: "Burpees", desc: "Acelera el metabolismo", img: "burpees.jpg", reps: "15 repeticiones" },
@@ -45,17 +101,14 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     
     const toggleButtons = (state) => {
-        const display = { start: "none", complete: "none", next: "none", restart: "none" };
+        const display = { start: "none", complete: "none", next: "none" };
         display[state] = "inline-block";
         elements["start-button"].style.display = display.start;
         elements["complete-button"].style.display = display.complete;
         elements["next-button"].style.display = display.next;
         
-        // Cambiar el texto del botón "next-button" cuando es el último ejercicio
         if (state === "next" && index === exercises.length - 1) {
             elements["next-button"].textContent = "Volver a Empezar";
-        } else if (state === "next") {
-            elements["next-button"].textContent = "Siguiente";
         }
     };
     
@@ -63,9 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const completeExercise = () => { clearInterval(timer); toggleButtons("next"); };
     const nextExercise = () => { 
         index++; 
-        if (index >= exercises.length) {
-            index = 0; // Reiniciar el índice
-        }
+        if (index >= exercises.length) index = 0;
         updateExercise(); 
         toggleButtons("start"); 
     };
@@ -76,12 +127,15 @@ document.addEventListener("DOMContentLoaded", () => {
         elements["exercise-description"].textContent = "Has terminado todos los ejercicios";
         elements["reps-counter"].textContent = "";
         elements["exercise-timer"].textContent = "00:00";
-        toggleButtons("next"); // Mostrar solo el botón "Volver a Empezar"
+        toggleButtons("next");
     };
     
-    elements["start-button"].addEventListener("click", startExercise);
-    elements["complete-button"].addEventListener("click", completeExercise);
-    elements["next-button"].addEventListener("click", nextExercise);
-    updateExercise();
-    toggleButtons("start");
+    if (elements["start-button"]) elements["start-button"].addEventListener("click", startExercise);
+    if (elements["complete-button"]) elements["complete-button"].addEventListener("click", completeExercise);
+    if (elements["next-button"]) elements["next-button"].addEventListener("click", nextExercise);
+    
+    if (elements["exercise-name"]) {
+        updateExercise();
+        toggleButtons("start");
+    }
 });
