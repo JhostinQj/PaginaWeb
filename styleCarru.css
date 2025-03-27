@@ -1,0 +1,31 @@
+body{
+
+    align-items: center;
+    justify-content: center;
+    background-color: lightblue;
+    height: 100vh;
+}
+.text{
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+img{
+    width: 100%;
+    object-fit: cover;
+    height: 200px;
+    filter: drop-shadow(1px 1px 5px rgb(0,0,0));
+}
+.carrusel{
+    display: flex;
+    gap: 5px;
+    width: 420%;
+    background-color: white;
+    scroll-snap-type: x mandatory;
+}
+.carrusel>div{
+    scroll-snap-align: center;
+    min-width: 300px;
+    margin: 10px;
+    background-color: black;
+}
