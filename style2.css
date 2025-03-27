@@ -14,23 +14,10 @@ header {
     text-align: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-.logo-image {
-    max-width: 150px;
-    height: auto;
-    transition: transform 0.3s ease;
-}
-
-.logo-image:hover {
-    transform: scale(1.05);
-}
-
-/* Estilos del menú de navegación */
 nav {
     background-color: #3498db;
     padding: 10px 0;
 }
-
 .menu {
     display: flex;
     justify-content: center;
@@ -38,11 +25,9 @@ nav {
     margin: 0;
     padding: 0;
 }
-
 .menu li {
     margin: 0 15px;
 }
-
 .menu a {
     color: white;
     text-decoration: none;
