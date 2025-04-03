@@ -19,7 +19,7 @@ img{
 .carrusel{
     display: flex;
     gap: 5px;
-    width: 420%;
+    width: 100%;
     background-color: white;
     scroll-snap-type: x mandatory;
 }
